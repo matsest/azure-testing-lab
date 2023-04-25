@@ -1,0 +1,22 @@
+configuration:
+  # Enable expansion for Bicep source files.
+  AZURE_BICEP_FILE_EXPANSION: true
+
+input:
+  targetType:
+    - Microsoft.Storage/storageAccounts
+  pathIgnore:
+    - "*" # ignore everything
+    - "!bicep/deploy/*.bicep" # only look in this directory
+
+rule:
+  includeLocal: true # to use custom rules
+  include: # only check this, not full baseline
+    - Azure.Storage.MinTLS
+    - Azure.Storage.SecureTransfer
+
+# Configure binding options - needed for local rules?
+binding:
+  targetType:
+    - "resourceType"
+    - "type"
